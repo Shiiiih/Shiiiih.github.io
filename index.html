@@ -7,47 +7,50 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Microsoft JhengHei', sans-serif; display: flex; margin: 0; background-color: #f8f9fa; color: #333; }
+        body { font-family: 'Microsoft JhengHei', sans-serif; display: flex; margin: 0; background: #f8f9fa; color: #333; }
         
-        /* 側邊欄 */
-        .sidebar { width: 280px; height: 100vh; background: #2c3e50; color: white; position: fixed; padding: 30px 20px; }
+        /* 側邊欄固定 */
+        .sidebar { width: 280px; height: 100vh; background: #2c3e50; color: white; position: fixed; padding: 30px 20px; z-index: 100; }
         .sidebar h3 { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
         .sidebar .sub-title { font-size: 0.85rem; color: #bdc3c7; margin-bottom: 30px; }
         .nav-link { color: #ecf0f1; margin-bottom: 12px; border-radius: 8px; padding: 10px 15px; transition: 0.3s; }
         .nav-link:hover { background: #34495e; color: #3498db; }
-        .nav-link.active { background: #3498db; color: white; }
 
         /* 內容區 */
         .content { margin-left: 280px; padding: 60px 80px; width: calc(100% - 280px); }
-        section { min-height: 100vh; padding-bottom: 80px; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+        section { min-height: 100vh; padding-bottom: 80px; }
         h2 { font-weight: bold; color: #2c3e50; margin-bottom: 40px; border-left: 6px solid #3498db; padding-left: 15px; }
 
-        /* 卡片設計 */
+        /* 卡片與圖片效果 */
         .card-custom { 
             background: white; border-radius: 15px; padding: 30px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: none; margin-bottom: 30px;
         }
-        .skill-badge { background: #e1f0fa; color: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-right: 8px; margin-bottom: 8px; display: inline-block; }
-        .project-title { font-weight: bold; color: #2c3e50; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .skill-badge { background: #e1f0fa; color: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-right: 8px; display: inline-block; margin-bottom: 5px; }
         
-        /* 照片與儀表板容器 */
-        .img-container { background: #eee; border-radius: 10px; margin-top: 20px; overflow: hidden; }
-        .img-container img { width: 100%; height: auto; display: block; }
-        .tableau-placeholder { width: 100%; min-height: 500px; background: #f1f1f1; border-radius: 10px; margin-top: 15px; }
+        .btn-action { margin-top: 15px; margin-right: 10px; border-radius: 25px; padding: 8px 20px; font-size: 0.9rem; transition: 0.3s; }
+        
+        /* 圖片點擊放大預覽效果 */
+        .img-preview { 
+            width: 100%; border-radius: 10px; border: 1px solid #eee; 
+            transition: 0.3s; cursor: pointer; display: block;
+        }
+        .img-preview:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); opacity: 0.9; }
 
-        .experience-item { border-left: 2px solid #3498db; padding-left: 20px; margin-bottom: 25px; position: relative; }
-        .experience-item::before { content: ""; width: 12px; height: 12px; background: #3498db; border-radius: 50%; position: absolute; left: -7px; top: 5px; }
+        /* Tableau 容器 */
+        .tableau-container { width: 100%; min-height: 650px; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid #eee; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <h3>邱詩婷</h3>
-        <div class="sub-title">輔大統資系大四(2026應屆畢業)| 數據分析作品集</div>
-        <nav class="nav flex-column mt-4">
+        <div class="sub-title">輔大統資系大四 (2026應屆畢業)</div>
+        <nav class="nav flex-column">
             <a class="nav-link" href="#about">關於我</a>
             <a class="nav-link" href="#ml">統計學術作品</a>
-            <a class="nav-link" href="#viz">視覺化相關 (Tableau)</a>
+            <a class="nav-link" href="#viz">視覺化相關成品 (Tableau)</a>
+            <a class="nav-link" href="#crawler">網路爬蟲實作</a>
             <a class="nav-link" href="#edu">參加的學分學程</a>
             <a class="nav-link" href="#certs">專業證照</a>
         </nav>
@@ -58,96 +61,81 @@
             <h2>關於我</h2>
             <div class="card-custom">
                 <p style="font-size: 1.1rem; line-height: 1.8;">
-                    我是邱詩婷，目前就讀於輔仁大學統計資訊學系四年級。我擅長利用統計學理基礎結合機器學習演算法，解決現實世界中的數據問題。
-                    從台股加權指數的預測，到政府交通開放資料的實作，我致力於將複雜的數據轉化為可視且具備洞察力的分析結果。
+                    你好！我是邱詩婷。擅長運用統計學理與機器學習模型（如 XGBoost、羅吉斯迴歸）解決實務數據問題。具備跨領域的數據處理經驗，能獨立完成從數據爬取、清理、建模到 Tableau 視覺化呈現的完整流程。
                 </p>
                 <div class="mt-4">
-                    <p><strong>聯絡方式：</strong> qiuuuu0511@gmail.com</p>
+                    <p><strong>聯絡方式：</strong> Qiuuuu0511@gmail.com</p>
                 </div>
             </div>
         </section>
 
         <section id="ml">
-            <h2>機器學習與統計分析</h2>
-            
+            <h2>統計學術作品</h2>
             <div class="card-custom">
-                <div class="project-title">
-                    <h4>畢業專案：台股加權指數技術分析優化</h4>
-                    <span class="badge bg-primary">重點作品</span>
+                <h4>畢業專題：台股加權指數技術分析優化</h4>
+                <p class="text-muted">運用 XGBoost 模型驗證機器學習是否能提升傳統技術分析之效能。包含 10-day Fixed Horizon 標記法之實作與優化。</p>
+                <span class="skill-badge">Python</span> <span class="skill-badge">XGBoost</span>
+                <div class="mt-3">
+                    <a href="docs/your_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀 PDF 完整報告</a>
+                    <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看成果展示影片</a>
                 </div>
-                <p>運用 <strong>XGBoost</strong> 演算法驗證機器學習是否能有效改進傳統技術指標的預測效能，並針對台股特性優化標記法。</p>
-                <span class="skill-badge">Python</span> <span class="skill-badge">XGBoost</span> <span class="skill-badge">技術指標 (RSI, KD, MACD)</span>
             </div>
 
             <div class="card-custom">
                 <h4>醫療數據路徑分析報告</h4>
-                <p>分析醫療流程路徑數據，識別關鍵轉折點與病程趨勢，提供臨床決策之數據支持。</p>
-                <span class="skill-badge">路徑分析</span> <span class="skill-badge">醫療大數據</span> <span class="skill-badge">統計建模</span>
+                <p class="text-muted">利用路徑分析技術識別醫療決策點與趨勢。</p>
+                <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">查看分析細節</a>
             </div>
 
             <div class="card-custom">
-                <h4>113年交通 A2 數據事故預測</h4>
-                <p>使用政府公開資料實作機器學習模型，處理大規模非結構化數據，訓練預測事故風險之模型。</p>
-                <span class="skill-badge">政府開放資料</span> <span class="skill-badge">數據清理 (ETL)</span> <span class="skill-badge">分類模型</span>
-            </div>
-
-            <div class="card-custom">
-                <h4>社會科學數據分析 (SRDA)</h4>
-                <p>利用 SRDA 學術資料庫進行羅吉斯迴歸 (Logistic Regression) 與決策樹分析，展現嚴謹的統計推論能力。</p>
-                <span class="skill-badge">SRDA</span> <span class="skill-badge">羅吉斯迴歸</span> <span class="skill-badge">決策樹</span>
+                <h4>SRDA 社會科學數據分析</h4>
+                <p class="text-muted">執行羅吉斯迴歸與決策樹模型分析，展現嚴謹統計推論基礎。</p>
+                <span class="skill-badge">Logistic Regression</span> <span class="skill-badge">Decision Tree</span>
             </div>
         </section>
 
         <section id="viz">
-            <h2>數據視覺化 (Tableau)</h2>
+            <h2>視覺化相關 (Tableau)</h2>
             <div class="card-custom">
-                <h4>新冠肺炎人口分析儀表板</h4>
-                <p>整合多來源數據，開發具備高度互動性之動態儀表板，提升使用者數據探索之效率。</p>
-                <span class="skill-badge">Tableau Public</span> <span class="skill-badge">互動設計</span>
-                <div class="tableau-placeholder">
-                    <p class="text-center pt-5 text-muted">https://public.tableau.com/app/profile/shihitng.qiu/viz/1127_17326971448650/sheet5</p>
+                <h4>動態儀表板：新冠肺炎與人口死因分析</h4>
+                <p class="text-muted">透過 Tableau 實作互動式指標監控，支援多維度篩選與深度探查數據特徵。</p>
+                <div class="tableau-container">
+                    <div class="p-5 text-center text-muted"><div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'><noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='1127_17326971448650&#47;sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1776181155848');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1577px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script></div>
                 </div>
             </div>
         </section>
 
-       <section id="edu">
-            <h2>參加的學分學程</h2>
-            
+        <section id="crawler">
+            <h2>網路爬蟲實作</h2>
             <div class="card-custom">
-                <div class="project-title">
-                    <h4>教育大數據微學程</h4>
-                    <span class="badge bg-info text-dark">數據專題發表</span>
-                </div>
-                <p><strong>專題名稱：統計系線性代數成績分析</strong></p>
-                <p class="text-muted">透過分析系上學生之成績數據，運用統計模型發現影響學習成效之關鍵因子。此專案展現了從發現問題、收集數據到產出洞察的完整流程。</p>
-                <div class="row mt-3">
+                <h4>明日預計實作：即時網頁數據抓取</h4>
+                <p class="text-muted">計畫使用 Python (Requests / BeautifulSoup) 抓取即時數據並進行初步統計展示。</p>
+                <div class="badge bg-secondary">明日更新...🏗️</div>
+            </div>
+        </section>
+
+        <section id="edu">
+            <h2>參加的學分學程</h2>
+            <div class="card-custom">
+                <h4>教育大數據微學程：統計系成績分析</h4>
+                <p class="text-muted">點擊下方圖片可查看專題發表海報大圖：</p>
+                <div class="row">
                     <div class="col-md-6">
-                        <div class="img-container" style="border: 1px dashed #ccc;">
-                            <img src="poster1.jpg" class="img-fluid" alt="線性代數成績分析海報1">
-                        </div>
+                        <a href="images/教育大數據海報1.jpg" target="_blank">
+                            <img src="images/教育大數據海報1.jpg" class="img-preview" alt="海報1">
+                        </a>
                     </div>
                     <div class="col-md-6">
-                        <div class="img-container" style="border: 1px dashed #ccc;">
-                            <img src="poster2.jpg" class="img-fluid" alt="線性代數成績分析海報2">
-                        </div>
+                        <a href="images/教育大數據海報2.jpg" target="_blank">
+                            <img src="images/教育大數據海報2.jpg" class="img-preview" alt="海報2">
+                        </a>
                     </div>
-                </div>
-                <div class="mt-3">
-                    <span class="skill-badge">教育大數據</span> <span class="skill-badge">統計分析</span>
                 </div>
             </div>
-
             <div class="card-custom">
-                <div class="project-title">
-                    <h4>大數據跨領域微學程</h4>
-                    <span class="badge bg-secondary">系統實作</span>
-                </div>
-                <p><strong>重點課程：網頁系統與資料庫實作</strong></p>
-                <p class="text-muted">此學程專注於跨領域技術整合。我在此期間掌握了 PHP 與 MySQL 的後端串接，並能獨立規劃具備數據讀取與存取功能的網頁系統架構。</p>
-                <div class="mt-3">
-                    <span class="skill-badge">PHP / MySQL</span> <span class="skill-badge">網頁系統開發</span> <span class="skill-badge">資料庫管理</span>
-                </div>
-                <p class="small text-muted mt-2">* 部分開發專案受保密協議限制，僅展示技術棧與架構設計能力。</p>
+                <h4>大數據跨領域微學程：網頁與資料庫實作</h4>
+                <p class="text-muted">掌握 PHP、MySQL 串接技術，理解數據流向架構。</p>
+                <span class="skill-badge">PHP</span> <span class="skill-badge">MySQL</span>
             </div>
         </section>
 
@@ -155,30 +143,36 @@
             <h2>專業證照</h2>
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card-custom text-center">
-                        <h6>TQC Python</h6>
-                        <p class="small">專業級</p>
+                    <div class="card-custom text-center p-3">
+                        <h6>(TQC+)程式語言 Python 3</h6>
+                        <a href="images/(TQC+)程式語言 Python 3證照.jpg" target="_blank">
+                            <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-preview mb-2" alt="程式語言證照">
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card-custom text-center">
-                        <h6>TQC 爬蟲</h6>
-                        <p class="small">專業級</p>
+                    <div class="card-custom text-center p-3">
+                        <h6>(TQC+)網頁資料擷取與分析 Python 3</h6>
+                        <a href="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" target="_blank">
+                            <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-preview mb-2" alt="爬蟲證照">
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card-custom text-center">
+                    <div class="card-custom text-center p-3">
                         <h6>SPSS 商業分析</h6>
-                        <p class="small">標準級</p>
+                        <a href="images/spss證照s.jpg" target="_blank">
+                            <img src="images/spss證照.jpg" class="img-preview mb-2" alt="SPSS證照">
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card-custom text-center">
-                        <h6>TOEIC</h6>
-                        <p class="small">語文認證</p>
+                    <div class="card-custom text-center p-3">
+                        <h6>多益TOEIC</h6>
+                    
                     </div>
                 </div>
-            </div>
+                </div>
         </section>
     </div>
 

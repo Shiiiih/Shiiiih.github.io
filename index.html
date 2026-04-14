@@ -9,7 +9,7 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Microsoft JhengHei', sans-serif; display: flex; margin: 0; background: #f8f9fa; color: #333; }
         
-        /* 側邊欄 */
+        /* 側邊欄固定 */
         .sidebar { width: 280px; height: 100vh; background: #2c3e50; color: white; position: fixed; padding: 30px 20px; z-index: 1000; }
         .sidebar h3 { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
         .sidebar .sub-title { font-size: 0.85rem; color: #bdc3c7; margin-bottom: 30px; }
@@ -23,13 +23,27 @@
 
         /* 卡片設計 */
         .card-custom { 
-            background: white; border-radius: 15px; padding: 30px; 
+            background: white; border-radius: 15px; padding: 35px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: none; margin-bottom: 30px;
         }
+
+        /* 證照卡片：強制等高 */
+        .cert-card {
+            height: 100%;
+            min-height: 380px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .skill-badge { background: #e1f0fa; color: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-right: 8px; display: inline-block; margin-bottom: 5px; }
+        .btn-action { margin-top: 15px; margin-right: 10px; border-radius: 25px; padding: 8px 20px; font-size: 0.9rem; transition: 0.3s; }
         
-        /* 圖片點擊放大 (燈箱) 效果 */
-        .img-clickable { width: 100%; border-radius: 10px; border: 1px solid #eee; transition: 0.3s; cursor: pointer; display: block; }
+        /* 圖片點擊放大預覽 */
+        .img-clickable { 
+            width: 100%; border-radius: 10px; border: 1px solid #eee; 
+            transition: 0.3s; cursor: pointer; display: block;
+        }
         .img-clickable:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); opacity: 0.9; }
 
         #lightbox {
@@ -38,8 +52,7 @@
         }
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 5px; }
 
-        .btn-action { margin-top: 15px; margin-right: 10px; border-radius: 25px; padding: 8px 20px; font-size: 0.9rem; transition: 0.3s; }
-        .tableau-container { width: 100%; min-height: 650px; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid #eee; }
+        .tableau-container { width: 100%; min-height: 700px; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid #eee; padding: 20px; }
     </style>
 </head>
 <body>
@@ -65,10 +78,10 @@
         <section id="about">
             <h2>關於我</h2>
             <div class="card-custom">
-                <p style="font-size: 1.1rem; line-height: 1.8;">
-                    你好！我是邱詩婷。擅長運用統計學理與機器學習模型（如 XGBoost、羅吉斯迴歸）解決實務數據問題。具備跨領域的數據處理經驗，能獨立完成從數據爬取、清理、建模到 Tableau 視覺化呈現的完整流程。
+                <p style="font-size: 1.15rem; line-height: 2; color: #2c3e50; max-width: 800px;">
+                    你好！我是邱詩婷。目前就讀於輔仁大學統計資訊學系四年級。我擅長運用統計學理基礎結合機器學習演算法（如 XGBoost、羅吉斯迴歸），解決現實世界中的數據問題。具備跨領域數據處理經驗，能獨立完成從數據爬取、清理、建模到 Tableau 視覺化呈現的完整流程。
                 </p>
-                <div class="mt-4">
+                <div class="mt-4 pt-3 border-top">
                     <p><strong>聯絡方式：</strong> Qiuuuu0511@gmail.com</p>
                 </div>
             </div>
@@ -76,43 +89,47 @@
 
         <section id="ml">
             <h2>統計學術作品</h2>
+            
             <div class="card-custom">
                 <h4>畢業專題：台股加權指數技術分析優化 (XGBoost)</h4>
-                <p class="text-muted">運用 XGBoost 模型驗證機器學習是否能提升傳統技術分析之效能。包含 10-day Fixed Horizon 標記法之實作與優化，深入探討 Weight (頻率) 在特徵重要性中的應用。</p>
-                <span class="skill-badge">Python</span> <span class="skill-badge">XGBoost</span> <span class="skill-badge">技術指標 (RSI, KD, MACD)</span>
+                <p class="text-muted">運用 XGBoost 模型驗證機器學習效能，探討 10-day Fixed Horizon 標記法之應用。</p>
+                <span class="skill-badge">Python</span> <span class="skill-badge">XGBoost</span>
                 <div class="mt-3">
-                    <a href="docs/your_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀 PDF 完整報告</a>
-                    <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看成果展示影片</a>
+                    <a href="docs/your_thesis.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀專題 PDF</a>
                 </div>
             </div>
 
             <div class="card-custom">
                 <h4>醫療數據路徑分析報告</h4>
-                <p class="text-muted">利用路徑分析技術識別醫療決策點與病程趨勢，將複雜醫療行為轉化為結構化分析模型。</p>
-                <span class="skill-badge">路徑分析</span> <span class="skill-badge">醫療大數據</span>
+                <p class="text-muted">利用路徑分析技術識別醫療決策點與趨勢。</p>
+                <span class="skill-badge">Path Analysis</span> <span class="skill-badge">Medical Data</span>
                 <div class="mt-3">
-                    <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">查看分析細節</a>
+                    <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
                 </div>
             </div>
 
             <div class="card-custom">
                 <h4>113 年交通事故 A2 數據實作</h4>
                 <p class="text-muted">使用政府開放資料進行機器學習模型實作，針對大規模交通數據進行清理與特徵工程。</p>
-                <span class="skill-badge">Open Data</span> <span class="skill-badge">數據清理</span>
+                <div class="mt-3">
+                    <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看 YouTube 展示影片</a>
+                </div>
             </div>
 
             <div class="card-custom">
                 <h4>SRDA 社會科學數據分析</h4>
-                <p class="text-muted">利用羅吉斯迴歸與決策樹模型，針對學術數據庫進行嚴謹的統計推論與預測分析。</p>
-                <span class="skill-badge">Logistic Regression</span> <span class="skill-badge">Decision Tree</span>
+                <p class="text-muted">執行羅吉斯迴歸與決策樹模型分析。</p>
+                <div class="mt-3">
+                    <a href="docs/srda_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
+                </div>
             </div>
         </section>
 
         <section id="viz">
-            <h2>視覺化相關 (Tableau)</h2>
+            <h2>視覺化相關成品 (Tableau)</h2>
             <div class="card-custom">
-                <h4>動態儀表板：新冠肺炎與人口死因分析</h4>
-                <p class="text-muted">具備高度交互性的 Tableau 儀表板，支援縣市、時間與死因多維度篩選。</p>
+                <h4>動態儀表板：新冠肺炎分析</h4>
+                <p class="text-muted">整合公開數據，開發具備高度交互性的數據監控面板。</p>
                 <div class="tableau-container">
                     <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'>
                         <noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript>
@@ -146,61 +163,55 @@
             </div>
         </section>
 
-        <section id="crawler">
-            <h2>網路爬蟲實作</h2>
-            <div class="card-custom">
-                <h4>明日預計實作：即時網頁數據抓取</h4>
-                <p class="text-muted">使用 Python (Requests / BeautifulSoup / Selenium) 抓取即時動態數據。</p>
-                <div class="badge bg-secondary">明日更新...🏗️</div>
-            </div>
-        </section>
-
         <section id="edu">
             <h2>參加的學分學程</h2>
             <div class="card-custom">
                 <h4>教育大數據微學程：統計系成績分析</h4>
-                <p class="text-muted">運用統計模型分析影響學習成效之關鍵因子。點擊海報可放大預覽：</p>
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="images/教育大數據海報1.png" class="img-clickable" onclick="openLightbox(this.src)" alt="海報1">
+                        <img src="images/教育大數據海報1.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                     <div class="col-md-6">
-                        <img src="images/教育大數據海報2.png" class="img-clickable" onclick="openLightbox(this.src)" alt="海報2">
+                        <img src="images/教育大數據海報2.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
             </div>
+
             <div class="card-custom">
                 <h4>大數據跨領域微學程：網頁與資料庫實作</h4>
-                <p class="text-muted">掌握 PHP、MySQL 串接技術，理解數據流向架構。包含實體資料庫規劃與後端邏輯開發。</p>
-                <span class="skill-badge">PHP</span> <span class="skill-badge">MySQL</span> <span class="skill-badge">Database Design</span>
+                <div class="p-3 bg-light rounded border">
+                    <small class="text-secondary">
+                        <strong>專案狀態：</strong> 實作中。
+                        <br>
+                        <strong>備註：</strong> 本專案涉及特定機構數據與架構，受資安與保密協議 (NDA) 約束，不公開代碼與詳細邏輯。
+                    </small>
+                </div>
+                <div class="mt-3">
+                    <span class="skill-badge">PHP</span> <span class="skill-badge">MySQL</span>
+                </div>
             </div>
         </section>
 
         <section id="certs">
-            <h2>專業證照 (點擊放大)</h2>
-            <div class="row text-center">
-                <div class="col-md-3 mb-4">
-                    <div class="card-custom p-3">
-                        <h6 style="font-size: 0.9rem;">Python 3 程式語言</h6>
-                        <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)" alt="證照1">
+            <h2>專業證照</h2>
+            <p class="text-muted"> 點擊即可放大。</p>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card-custom cert-card">
+                        <h6>(TQC+)程式語言 Python 3</h6>
+                        <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card-custom p-3">
-                        <h6 style="font-size: 0.9rem;">Python 3 網頁資料擷取</h6>
-                        <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)" alt="證照2">
+                <div class="col-md-4">
+                    <div class="card-custom cert-card">
+                        <h6>(TQC+)網頁資料擷取與分析 Python 3</h6>
+                        <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card-custom p-3">
-                        <h6 style="font-size: 0.9rem;">SPSS 商業分析</h6>
-                        <img src="images/spss證照.jpg" class="img-clickable" onclick="openLightbox(this.src)" alt="證照3">
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card-custom p-3">
-                        <h6 style="font-size: 0.9rem;">多益 TOEIC</h6>
-                        <div class="p-4 bg-light rounded">預留圖片位</div>
+                <div class="col-md-4">
+                    <div class="card-custom cert-card">
+                        <h6>SPSS 商業分析</h6>
+                        <img src="images/spss證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
             </div>

@@ -9,28 +9,22 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Microsoft JhengHei', sans-serif; display: flex; margin: 0; background: #f8f9fa; color: #333; }
         
-        /* 側邊欄固定 */
         .sidebar { width: 280px; height: 100vh; background: #2c3e50; color: white; position: fixed; padding: 30px 20px; z-index: 1000; }
         .sidebar h3 { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
         .sidebar .sub-title { font-size: 0.85rem; color: #bdc3c7; margin-bottom: 30px; }
         .nav-link { color: #ecf0f1; margin-bottom: 12px; border-radius: 8px; padding: 10px 15px; transition: 0.3s; }
         .nav-link:hover { background: #34495e; color: #3498db; }
 
-        /* 內容區 */
         .content { margin-left: 280px; padding: 60px 80px; width: calc(100% - 280px); }
         section { min-height: 100vh; padding-bottom: 80px; }
         h2 { font-weight: bold; color: #2c3e50; margin-bottom: 40px; border-left: 6px solid #3498db; padding-left: 15px; }
 
-        /* 卡片設計 */
-        .card-custom { 
-            background: white; border-radius: 15px; padding: 35px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: none; margin-bottom: 30px;
-        }
+        .card-custom { background: white; border-radius: 15px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: none; margin-bottom: 30px; }
 
-        /* 證照卡片：強制等高 */
+        /* 證照卡片：強制等高 (一排四個版本) */
         .cert-card {
             height: 100%;
-            min-height: 380px; 
+            min-height: 320px; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -39,17 +33,10 @@
         .skill-badge { background: #e1f0fa; color: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-right: 8px; display: inline-block; margin-bottom: 5px; }
         .btn-action { margin-top: 15px; margin-right: 10px; border-radius: 25px; padding: 8px 20px; font-size: 0.9rem; transition: 0.3s; }
         
-        /* 圖片點擊放大預覽 */
-        .img-clickable { 
-            width: 100%; border-radius: 10px; border: 1px solid #eee; 
-            transition: 0.3s; cursor: pointer; display: block;
-        }
+        .img-clickable { width: 100%; border-radius: 10px; border: 1px solid #eee; transition: 0.3s; cursor: pointer; display: block; }
         .img-clickable:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); opacity: 0.9; }
 
-        #lightbox {
-            display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out;
-        }
+        #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 5px; }
 
         .tableau-container { width: 100%; min-height: 700px; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid #eee; padding: 20px; }
@@ -89,39 +76,25 @@
 
         <section id="ml">
             <h2>統計學術作品</h2>
-            
             <div class="card-custom">
                 <h4>畢業專題：台股加權指數技術分析優化 (XGBoost)</h4>
                 <p class="text-muted">運用 XGBoost 模型驗證機器學習效能，探討 10-day Fixed Horizon 標記法之應用。</p>
-                <span class="skill-badge">Python</span> <span class="skill-badge">XGBoost</span>
-                <div class="mt-3">
-                    <a href="docs/your_thesis.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀專題 PDF</a>
-                </div>
+                <a href="docs/your_thesis.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀專案 PDF</a>
             </div>
-
             <div class="card-custom">
                 <h4>醫療數據路徑分析報告</h4>
-                <p class="text-muted">利用路徑分析技術識別醫療決策點與趨勢。</p>
-                <span class="skill-badge">Path Analysis</span> <span class="skill-badge">Medical Data</span>
-                <div class="mt-3">
-                    <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
-                </div>
+                <p class="text-muted">利用路徑分析技術識別醫療決策點與病程趨勢。</p>
+                <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
             </div>
-
             <div class="card-custom">
                 <h4>113 年交通事故 A2 數據實作</h4>
                 <p class="text-muted">使用政府開放資料進行機器學習模型實作，針對大規模交通數據進行清理與特徵工程。</p>
-                <div class="mt-3">
-                    <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看 YouTube 展示影片</a>
-                </div>
+                <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看 YouTube 展示影片</a>
             </div>
-
             <div class="card-custom">
                 <h4>SRDA 社會科學數據分析</h4>
                 <p class="text-muted">執行羅吉斯迴歸與決策樹模型分析。</p>
-                <div class="mt-3">
-                    <a href="docs/srda_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
-                </div>
+                <a href="docs/srda_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
             </div>
         </section>
 
@@ -129,37 +102,18 @@
             <h2>視覺化相關成品 (Tableau)</h2>
             <div class="card-custom">
                 <h4>動態儀表板：新冠肺炎分析</h4>
-                <p class="text-muted">整合公開數據，開發具備高度交互性的數據監控面板。</p>
                 <div class="tableau-container">
-                    <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'>
-                        <noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript>
-                        <object class='tableauViz' style='display:none;'>
-                            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
-                            <param name='embed_code_version' value='3' /> 
-                            <param name='site_root' value='' />
-                            <param name='name' value='1127_17326971448650&#47;sheet5' />
-                            <param name='tabs' value='no' />
-                            <param name='toolbar' value='yes' />
-                            <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> 
-                            <param name='animate_transition' value='yes' />
-                            <param name='display_static_image' value='yes' />
-                            <param name='display_spinner' value='yes' />
-                            <param name='display_overlay' value='yes' />
-                            <param name='display_count' value='yes' />
-                            <param name='language' value='zh-TW' />
-                        </object>
-                    </div>
-                    <script type='text/javascript'>
-                        var divElement = document.getElementById('viz1776181155848');
-                        var vizElement = divElement.getElementsByTagName('object')[0];
-                        if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
-                        else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
-                        else { vizElement.style.width='100%';vizElement.style.height='1577px';}
-                        var scriptElement = document.createElement('script');
-                        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                        vizElement.parentNode.insertBefore(scriptElement, vizElement);
-                    </script>
+                    <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'><noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='1127_17326971448650&#47;sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div><script type='text/javascript'> var divElement = document.getElementById('viz1776181155848'); var vizElement = divElement.getElementsByTagName('object')[0]; if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1577px';} var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
                 </div>
+            </div>
+        </section>
+
+        <section id="crawler">
+            <h2>網路爬蟲實作</h2>
+            <div class="card-custom">
+                <h4>明日預計實作：即時網頁數據抓取</h4>
+                <p class="text-muted">使用 Python (Requests / BeautifulSoup / Selenium) 抓取即時數據並展示。</p>
+                <div class="badge bg-secondary mt-2">明日更新實作內容...🏗️</div>
             </div>
         </section>
 
@@ -168,50 +122,46 @@
             <div class="card-custom">
                 <h4>教育大數據微學程：統計系成績分析</h4>
                 <div class="row">
-                    <div class="col-md-6">
-                        <img src="images/教育大數據海報1.png" class="img-clickable" onclick="openLightbox(this.src)">
-                    </div>
-                    <div class="col-md-6">
-                        <img src="images/教育大數據海報2.png" class="img-clickable" onclick="openLightbox(this.src)">
-                    </div>
+                    <div class="col-md-6"><img src="images/教育大數據海報1.png" class="img-clickable" onclick="openLightbox(this.src)"></div>
+                    <div class="col-md-6"><img src="images/教育大數據海報2.png" class="img-clickable" onclick="openLightbox(this.src)"></div>
                 </div>
             </div>
-
             <div class="card-custom">
                 <h4>大數據跨領域微學程：網頁與資料庫實作</h4>
-                <div class="p-3 bg-light rounded border">
-                    <small class="text-secondary">
-                        <strong>專案狀態：</strong> 實作中。
-                        <br>
-                        <strong>備註：</strong> 本專案涉及特定機構數據受保密協議約束，不公開代碼與內容。
-                    </small>
-                </div>
-                <div class="mt-3">
-                    <span class="skill-badge">PHP</span> <span class="skill-badge">MySQL</span>
+                <div class="p-4 bg-light rounded border mt-2">
+                    <p class="mb-2"><strong>專案狀態：</strong> <span class="badge bg-warning text-dark">正在實作中</span></p>
+                    <p class="small text-secondary mb-0">受保密協議約束，不公開代碼與詳細邏輯。</p>
                 </div>
             </div>
         </section>
 
         <section id="certs">
-            <h2>專業證照</h2>
-            <p class="text-muted"> 點擊即可放大。</p>
+            <h2>專業證照 (點擊放大)</h2>
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card-custom cert-card">
-                        <h6>(TQC+)程式語言 Python 3</h6>
+                <div class="col-md-3">
+                    <div class="card-custom cert-card text-center p-3">
+                        <h6>Python 3 程式語言</h6>
                         <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card-custom cert-card">
-                        <h6>(TQC+)網頁資料擷取與分析 Python 3</h6>
+                <div class="col-md-3">
+                    <div class="card-custom cert-card text-center p-3">
+                        <h6>Python 3 網頁爬蟲</h6>
                         <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card-custom cert-card">
+                <div class="col-md-3">
+                    <div class="card-custom cert-card text-center p-3">
                         <h6>SPSS 商業分析</h6>
                         <img src="images/spss證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-custom cert-card text-center p-3">
+                        <h6>多益 TOEIC</h6>
+                        <div class="p-4 bg-light rounded border d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <span class="text-muted small">圖片上傳後<br>替換此處</span>
+                        </div>
                     </div>
                 </div>
             </div>

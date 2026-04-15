@@ -29,7 +29,6 @@
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
         .about-item { padding: 15px; background: #fdfdfd; border-radius: 10px; border: 1px solid #f0f0f0; }
         .about-item h6 { color: #3498db; font-weight: bold; margin-bottom: 10px; }
-        .about-item i { margin-right: 8px; }
 
         /* 證照卡片：三格等高 */
         .cert-card { height: 100%; min-height: 350px; display: flex; flex-direction: column; justify-content: space-between; }
@@ -41,6 +40,7 @@
 
         .btn-action { margin-top: 15px; margin-right: 10px; border-radius: 25px; padding: 8px 20px; font-size: 0.9rem; transition: 0.3s; }
         .tableau-container { width: 100%; min-height: 700px; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid #eee; padding: 20px; }
+        .skill-badge { background: #e1f0fa; color: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-right: 8px; display: inline-block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -51,12 +51,12 @@
 
     <div class="sidebar">
         <h3>邱詩婷</h3>
-        <div class="sub-title">輔仁大學統計資訊學系</div>
+        <div class="sub-title">輔大統資系 | 2026 應屆畢業</div>
         <nav class="nav flex-column">
             <a class="nav-link" href="#about">關於我</a>
             <a class="nav-link" href="#ml">統計學術作品</a>
-            <a class="nav-link" href="#viz">視覺化相關成品 (Tableau)</a>
-            <a class="nav-link" href="#edu">過往參與的學分學程</a>
+            <a class="nav-link" href="#viz">視覺化成品 (Tableau)</a>
+            <a class="nav-link" href="#edu">跨域學習</a>
             <a class="nav-link" href="#certs">專業證照</a>
         </nav>
     </div>
@@ -66,70 +66,100 @@
             <h2>關於我</h2>
             <div class="card-custom">
                 <p style="font-size: 1.15rem; line-height: 1.8; color: #2c3e50;">
-                    你好！我是邱詩婷，目前就讀於輔仁大學統計資訊學系四年級（2026應屆畢業）。
-                    我是一名以邏輯為核心的數據分析者，擅長將統計理論與機器學習結合，為複雜問題提供清晰的量化見解。
+                    你好！我是邱詩婷，輔仁大學統計資訊學系四年級學生。我專注於數據科學與量化分析，致力於將統計理論應用於實務決策。
                 </p>
 
                 <div class="about-grid">
                     <div class="about-item">
-                        <h6><i class="bi bi-person-hearts"></i>人格特質</h6>
-                        <p class="small text-muted mb-0">冷靜理性、具備高度耐心與問題解決能力。面對大量數據時，能保持細心並挖掘細微趨勢。</p>
+                        <h6><i class="bi bi-person-hearts"></i> 人格特質</h6>
+                        <p class="small text-muted mb-0">理性冷靜且情感內斂，面對複雜數據具備高度耐心。在團隊中傾向直球溝通，重視效率與事前的共識達成。</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-mortarboard"></i>教育背景</h6>
-                        <p class="small text-muted mb-0">輔仁大學 統計資訊學系 | 預計 2026 年 6 月畢業</p>
+                        <h6><i class="bi bi-star"></i> 核心優勢與技能</h6>
+                        <p class="small text-muted mb-0">擅長 Python (XGBoost)、R 與 SQL。堅持使用 10 天固定區間標記法，並能從資料爬取到視覺化呈現獨立完成全流程。</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-star"></i>核心優勢</h6>
-                        <p class="small text-muted mb-0">熟悉Python、SQL 資料庫管理、以及Tableau 等視覺化工具。 </p>
+                        <h6><i class="bi bi-chat-dots"></i> 語文能力</h6>
+                        <p class="small text-muted mb-0">英文：具備多益檢定能力，可流暢閱讀學術文獻。日文：基礎溝通與旅遊應用能力。</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-chat-dots"></i>語文能力</h6>
-                        <p class="small text-muted mb-0">中文 / 英文 (具備多益825分)。</p>
+                        <h6><i class="bi bi-people"></i> 團隊合作模式</h6>
+                        <p class="small text-muted mb-0">偏好明確的分工與目標設定，擅長擔任數據處理與技術支持角色，提供穩定且可靠的分析支援。</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-people"></i>團隊合作模式</h6>
-                        <p class="small text-muted mb-0">重視直接且高效的溝通，傾向在任務執行前達成共識。在團隊中擔任數據支援與技術梳理的角色。</p>
+                        <h6><i class="bi bi-controller"></i> 生活興趣</h6>
+                        <p class="small text-muted mb-0">熱愛動植物照護（家有愛犬與黑領椋鳥）、探索日本區域旅遊與蒐集 Hello Kitty 周邊。</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-controller"></i>生活興趣</h6>
-                        <p class="small text-muted mb-0">熱愛動植物照護（家有愛犬與黑領椋鳥）、探索日本文化與區域旅遊、蒐集角色盲盒。</p>
+                        <h6><i class="bi bi-envelope"></i> 聯絡資訊</h6>
+                        <p class="small text-muted mb-0">Email: Qiuuuu0511@gmail.com</p>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <section id="ml">
             <h2>統計學術作品</h2>
+            
             <div class="card-custom">
-                <h4>畢業專案：台股加權指數技術分析優化 (XGBoost)</h4>
-                <p class="text-muted">運用 XGBoost 模型驗證機器學習效能，探討 10-day Fixed Horizon 標記法之應用。</p>
+                <h4>1. 畢業專題：以台股加權指數研究機器學習模型（XGBoost）是否能改進技術分析</h4>
+                <p class="text-muted">運用 XGBoost 模型驗證機器學習效能，透過歷史資料回測績效評估，比較機器學習與傳統策略在報酬率和風險管理方面的差異。</p>
+                <div class="mb-3">
+                    <span class="skill-badge">XGBoost 建模 </span>
+                    <span class="skill-badge">金融數據分析</span>
+                    <span class="skill-badge">量化策略回測</span>
+                </div>
                 <div class="mt-3">
                     <a href="docs/your_thesis.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀專題 PDF</a>
                 </div>
             </div>
+            
             <div class="card-custom">
-                <h4>113 年交通事故 A2 數據實作</h4>
-                <p class="text-muted">使用政府開放資料進行機器學習模型實作，針對大規模交通數據進行清理與特徵工程。</p>
-                <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看 YouTube 展示影片</a>
+                <h4>2. 使用政府開放資料（113 年 7 月 A2 交通事故資料）進行機器學習模型實作</h4>
+                <p class="text-muted">透過機器學習模型進行事故特徵擷取與死傷嚴重程度（單人/多人受傷）的預測。</p>
+                <div class="mb-3">
+                    <span class="skill-badge">Python (Scikit-learn)</span>
+                    <span class="skill-badge">資料採礦 (Data Mining)</span>
+                    <span class="skill-badge">模型建構/優化</span>
+                </div>
+
+                <div class="mt-3">
+                    <a href="https://youtu.be/a6mcAZ-bwe0" target="_blank" class="btn btn-outline-danger btn-action">
+                        <i class="bi bi-youtube"></i> 觀看 YouTube 展示影片
+                    </a>
+                </div>
             </div>
+
             <div class="card-custom">
-                <h4>SRDA學術資料庫實作</h4>
-                <p class="text-muted">使用學術資料進行的資料進行羅吉斯迴歸與決策樹模型分析</p>
-                <a href="https://youtu.be/..." target="_blank" class="btn btn-outline-danger btn-action">觀看 YouTube 展示影片</a>
+                <h4>3. 使用SRDA學術資料庫資料進行跨世代網路沉迷風險因素研究</h4>
+                <p class="text-muted">運用學術調查研究資料庫（SRDA）之數據進行分析，結合 羅吉斯迴歸 計算勝算比與決策樹描繪行為路徑 。</p>
+                <div class="mb-3">
+                    <span class="skill-badge">社會科學數據分析</span>
+                    <span class="skill-badge">機器學習</span>
+                    <span class="skill-badge">行為預測建模</span>
+                </div>
+                <div class="mt-3">
+                    <a href="docs/srda_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">瀏覽PDF</a>
+                </div>
             </div>
-             <div class="card-custom">
-                <h4>醫療數據--NCBI GEO資料庫資料分析報告</h4>
-                <p class="text-muted">利用路徑分析技術識別醫療決策點與病程趨勢。</p>
-                <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀報告 PDF</a>
+
+            <div class="card-custom">
+                <h4>4. NCBI 轉錄體大數據分析：重度憂鬱症伴隨自殺傾向之基因探究</h4>
+                <p class="text-muted">基於 NCBI GEO 資料庫（GSE291874）進行血液轉錄組分析，找出重度憂鬱症（MDD）伴隨急性自殺傾向之關鍵調控因子。</p>
+                <div class="mb-3">
+                    <span class="skill-badge">醫療統計</span>
+                    <span class="skill-badge">生物資訊工具應用</span>
+                </div>
+                <div class="mt-3">
+                    <a href="docs/medical_report.pdf" target="_blank" class="btn btn-outline-primary btn-action">瀏覽PDF</a>
+                </div>
             </div>
         </section>
 
         <section id="viz">
             <h2>視覺化相關成品 (Tableau)</h2>
             <div class="card-custom">
-                <h4>動態儀表板：新冠肺炎確診數分析</h4>
+                <h4>動態儀表板：全台新冠肺炎確診人數分析</h4>
                 <div class="tableau-container">
                     <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'><noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='1127_17326971448650&#47;sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div><script type='text/javascript'> var divElement = document.getElementById('viz1776181155848'); var vizElement = divElement.getElementsByTagName('object')[0]; if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1577px';} var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
                 </div>
@@ -137,19 +167,28 @@
         </section>
 
         <section id="edu">
-            <h2>參加的學分學程</h2>
+            <h2>跨域學習</h2>
+            
             <div class="card-custom">
-                <h4>教育大數據微學程：統計系成績分析</h4>
+                <h4>教育大數據微學程：教育資料結合大數據分析</h4>
+                <p class="text-muted">運用R統計軟體分析系上線性代數成績，並使用tableau視覺化。專題成果如下：</p>
                 <div class="row">
                     <div class="col-md-6"><img src="images/教育大數據海報1.png" class="img-clickable" onclick="openLightbox(this.src)"></div>
                     <div class="col-md-6"><img src="images/教育大數據海報2.png" class="img-clickable" onclick="openLightbox(this.src)"></div>
                 </div>
             </div>
+
             <div class="card-custom">
-                <h4>大數據跨領域微學程：網頁與資料庫實作</h4>
-                <div class="p-4 bg-light rounded border">
-                    <p class="small text-secondary mb-0">受保密協議 (NDA) 約束，項目實作中，不公開詳細代碼。</p>
+                <h4>大數據跨領域微學程：網頁系統與資料庫實作</h4>
+                <div class="p-3 bg-light rounded border mb-3">
+                    <small class="text-secondary">受保密協議約束，項目實作中。僅列出技術實作範疇：</small>
                 </div>
+                <ul>
+                    <li class="small text-muted"><strong>專案透明化：</strong> 實施週進度視覺化管理，利用報表同步更新團隊資訊以及專案狀況。</li>
+                    <li class="small text-muted"><strong>資料整理：</strong> 負責原始數據之清洗與轉置，方便後續分析流程。</li>
+                    <li class="small text-muted"><strong>新增OLAP 功能：</strong> 實作線上分析處理功能，支援多維度數據視覺化分析。</li>
+                    <li class="small text-muted"><strong>網頁前端美化：</strong> 運用 CSS 與 Bootstrap 提升使用者介面的易用性與美感。</li>
+                </ul>
             </div>
         </section>
 
@@ -158,19 +197,19 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card-custom cert-card text-center p-3">
-                        <h6>Python 3 程式語言</h6>
+                        <h6>(TQC+) 程式語言 Python 3</h6>
                         <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card-custom cert-card text-center p-3">
-                        <h6>Python 3 網頁爬蟲</h6>
+                        <h6>(TQC+)網頁資料擷取與分析 Python 3證照</h6>
                         <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card-custom cert-card text-center p-3">
-                        <h6>SPSS 商業分析</h6>
+                        <h6>SPSS 商業分析師(標準級)</h6>
                         <img src="images/spss證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
                     </div>
                 </div>

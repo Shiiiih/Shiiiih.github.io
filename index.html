@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>邱詩婷 Shih-Ting Chiu | Data Architect Portfolio</title>
+    <title>邱詩婷 Shih-Ting Chiu | 數據分析作品集</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;600;700&family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <style>
         :root {
-            --bg-base: #FDFCFB; /* 珍珠白 */
-            --bg-sub: #F5F2EE; /* 暖調沙色 */
-            --navy: #0D2C54; /* 深海藍 */
-            --coral: #FF6B6B; /* 活力珊瑚 */
-            --text-main: #1A1A1A; /* 深碳黑 */
-            --text-dim: #666666;
-            --border: rgba(13, 44, 84, 0.1);
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            /* 活力明亮的漸層色 */
+            --primary: #FF6B6B;
+            --secondary: #4E65FF;
+            --accent-cyan: #00F2FE;
+            --accent-yellow: #FAC213;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
         }
 
-        /* 語言隱藏邏輯 */
+        /* 雙語切換邏輯 */
         [lang-type] { display: none; }
         html[lang="zh"] [lang-type="zh"] { display: block; }
         html[lang="zh"] span[lang-type="zh"] { display: inline; }
@@ -28,329 +30,401 @@
         html[lang="en"] span[lang-type="en"] { display: inline; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: var(--bg-base);
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            color: var(--text-main);
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            color: var(--text-dark);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            background-color: #F8FAFC;
         }
 
-        /* 背景裝飾色塊 */
-        .bg-shapes {
+        /* -------------------------------------
+           ✨ 動態活力背景 (Animated Blobs)
+        -------------------------------------- */
+        .bg-animation {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -1;
-            opacity: 0.5;
+            overflow: hidden;
+            background: #F0F4FD;
         }
-        .shape {
+        .blob {
             position: absolute;
-            background: linear-gradient(135deg, #E0E7FF 0%, #F5F2EE 100%);
-            border-radius: 50%;
-            filter: blur(60px);
+            filter: blur(90px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        .blob.cyan { width: 500px; height: 500px; background: #00F2FE; top: -10%; left: -10%; }
+        .blob.pink { width: 600px; height: 600px; background: #FF9A9E; bottom: -20%; right: -10%; animation-delay: -5s; }
+        .blob.yellow { width: 400px; height: 400px; background: #FECFEF; top: 30%; left: 40%; animation-delay: -10s; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(10vw, 10vh) scale(1.2); }
         }
 
-        /* 導航 Dock - 懸浮在底部 */
-        .nav-dock {
+        /* -------------------------------------
+           ✨ 導航欄 (Top Glass Nav)
+        -------------------------------------- */
+        .glass-nav {
             position: fixed;
-            bottom: 30px; left: 50%;
+            top: 20px; left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            padding: 10px 30px;
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 15px 40px;
             border-radius: 50px;
-            border: 1px solid var(--border);
             z-index: 1000;
             display: flex;
             gap: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: var(--glass-shadow);
         }
-        .nav-dock a {
-            color: var(--navy);
-            font-size: 1.2rem;
-            transition: var(--transition);
+        .glass-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
-        .nav-dock a:hover { transform: translateY(-3px); color: var(--coral); }
+        .glass-nav a:hover { color: var(--secondary); transform: translateY(-2px); }
 
         /* 語言切換按鈕 */
         .lang-switch {
             position: fixed;
-            top: 40px; right: 40px;
-            padding: 12px 24px;
-            background: var(--navy);
+            bottom: 30px; right: 30px;
+            background: linear-gradient(135deg, #4E65FF, #92EFFD);
             color: white;
             border: none;
+            padding: 15px 25px;
             border-radius: 30px;
-            font-weight: 600;
+            font-weight: 900;
+            font-size: 1rem;
             cursor: pointer;
-            z-index: 1001;
-            transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(13, 44, 84, 0.2);
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(78, 101, 255, 0.3);
+            transition: 0.3s;
         }
-        .lang-switch:hover { transform: scale(1.05); background: var(--coral); }
+        .lang-switch:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(78, 101, 255, 0.5); }
 
-        /* 大容器 */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        /* -------------------------------------
+           ✨ 通用玻璃卡片 (Glassmorphism Cards)
+        -------------------------------------- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 120px 20px 50px; }
+        
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: var(--glass-shadow);
+            transition: 0.4s;
+        }
+        .glass-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.7); }
 
-        /* Hero Section */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* -------------------------------------
+           ✨ Typography 排版設計
+        -------------------------------------- */
+        h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4E65FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 10px;
         }
-        .hero h1 {
-            font-family: 'Playfair Display', 'Noto Serif TC', serif;
-            font-size: clamp(3rem, 10vw, 7rem);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: var(--navy);
-        }
-        .hero-sub {
-            font-size: 1.5rem;
-            color: var(--text-dim);
-            max-width: 600px;
-            border-left: 2px solid var(--coral);
-            padding-left: 20px;
-        }
+        h2 { font-size: 2.2rem; font-weight: 900; color: var(--text-dark); margin-bottom: 30px; }
+        h3 { font-size: 1.5rem; font-weight: 800; color: var(--secondary); margin-bottom: 15px; }
+        p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; }
 
-        /* Bento Grid 雅緻版 */
-        .bento {
+        /* Hero 區塊 */
+        .hero { text-align: center; padding: 60px 0 80px; }
+        .hero p { max-width: 700px; margin: 20px auto 0; font-size: 1.3rem; }
+
+        /* -------------------------------------
+           ✨ 關於我 Grid
+        -------------------------------------- */
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin: 100px 0;
-        }
-        .bento-card {
-            background: white;
-            border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 4px; /* 這裡改用直角圓角混搭，更具設計感 */
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .bento-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
-        .span-2 { grid-column: span 2; }
-
-        /* 專案卡片 - 雜誌排版風格 */
-        .project {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            margin-bottom: 120px;
-            align-items: start;
-        }
-        .project-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            color: var(--bg-sub);
-            margin-bottom: -40px;
-        }
-        .project-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--navy);
-        }
-        .tag-row { display: flex; gap: 12px; margin: 20px 0; }
-        .pill {
-            padding: 6px 16px;
-            border: 1px solid var(--navy);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* 按鈕 */
-        .btn-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            background: var(--navy);
-            color: white;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             margin-top: 30px;
-            transition: var(--transition);
         }
-        .btn-link:hover { background: var(--coral); padding-right: 40px; }
+        .about-item {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid white;
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: 0.3s;
+        }
+        .about-item:hover { transform: scale(1.03); background: white; }
+        .icon-box {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, #FFE53B 0%, #FF2525 100%);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem;
+            flex-shrink: 0;
+        }
 
-        /* Tableau 區域 */
-        .viz-section {
-            background: var(--navy);
-            padding: 100px 40px;
-            border-radius: 4px;
-            margin: 100px 0;
+        /* -------------------------------------
+           ✨ 活力標籤與按鈕 (Tags & Buttons)
+        -------------------------------------- */
+        .tag-container { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .tag {
+            background: white;
+            color: var(--secondary);
+            font-weight: 800;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(78, 101, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .btn-action {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: 0.3s;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4E65FF, #92EFFD);
             color: white;
+            box-shadow: 0 8px 20px rgba(78,101,255,0.3);
         }
-        .viz-header { text-align: center; margin-bottom: 50px; }
-        .viz-header h2 { font-family: 'Playfair Display', serif; font-size: 3rem; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(78,101,255,0.4); color: white;}
+        
+        .btn-github {
+            background: white;
+            color: #2D3436;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .btn-github:hover { transform: translateY(-3px); background: #2D3436; color: white; }
 
-        /* 響應式 */
-        @media (max-width: 900px) {
-            .project { grid-template-columns: 1fr; gap: 40px; }
-            .bento { grid-template-columns: 1fr; }
-            .span-2 { grid-column: span 1; }
-            .hero h1 { font-size: 4rem; }
+        /* -------------------------------------
+           ✨ Tableau 與 圖片
+        -------------------------------------- */
+        .tableau-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 10px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .cert-img {
+            width: 100%; border-radius: 15px; cursor: pointer;
+            transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .cert-img:hover { transform: translateY(-10px) scale(1.02); }
+
+        /* Lightbox */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(15px);
+            z-index: 2000; display: none; justify-content: center; align-items: center;
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+
+        @media (max-width: 768px) {
+            .glass-nav { width: 90%; justify-content: space-between; padding: 15px 25px; }
+            .glass-card { padding: 30px; }
         }
     </style>
 </head>
-<body>
+<body lang="zh">
 
-    <div class="bg-shapes">
-        <div class="shape" style="width: 600px; height: 600px; top: -200px; left: -100px;"></div>
-        <div class="shape" style="width: 400px; height: 400px; bottom: 100px; right: -100px; background: #FFF1F1;"></div>
+    <div class="bg-animation">
+        <div class="blob cyan"></div>
+        <div class="blob pink"></div>
+        <div class="blob yellow"></div>
     </div>
 
-    <button class="lang-switch" onclick="toggleLang()">
-        <span lang-type="zh">ENG / English</span>
-        <span lang-type="en">中 / Traditional Chinese</span>
-    </button>
-
-    <nav class="nav-dock">
-        <a href="#home"><i class="bi bi-house"></i></a>
-        <a href="#about"><i class="bi bi-info-circle"></i></a>
-        <a href="#projects"><i class="bi bi-briefcase"></i></a>
-        <a href="#viz"><i class="bi bi-bar-chart"></i></a>
+    <nav class="glass-nav">
+        <a href="#about"><span lang-type="zh">關於我</span><span lang-type="en">About</span></a>
+        <a href="#projects"><span lang-type="zh">專案</span><span lang-type="en">Projects</span></a>
+        <a href="#viz"><span lang-type="zh">視覺化</span><span lang-type="en">Data Viz</span></a>
+        <a href="#certs"><span lang-type="zh">證照</span><span lang-type="en">Certs</span></a>
     </nav>
 
+    <button class="lang-switch" onclick="toggleLang()">
+        <span lang-type="zh">English Mode ✨</span>
+        <span lang-type="en">切換中文 ✨</span>
+    </button>
+
     <div class="container">
+        
         <section class="hero" id="home">
-            <h1 lang-type="zh">邱詩婷<br>數據與決策的橋樑</h1>
-            <h1 lang-type="en">Shih-Ting Chiu<br>Data Architect</h1>
-            <div class="hero-sub">
-                <p lang-type="zh">輔仁大學統計資訊學系。專注於利用機器學習與統計建模，從資料中挖掘商業洞察。 </p>
-                <p lang-type="en">Senior at FJU Statistics. Bridging the gap between raw data and strategic decision-making through advanced modeling.</p>
-            </div>
+            <h1 lang-type="zh">Hi! 我是邱詩婷 👋</h1>
+            <h1 lang-type="en">Hi! I'm Shih-Ting 👋</h1>
+            <h2 style="color: var(--secondary); font-size: 1.8rem;">
+                <span lang-type="zh">賦予數據生命，轉化為商業洞察。</span>
+                <span lang-type="en">Bringing data to life.</span>
+            </h2>
+            <p lang-type="zh">輔仁大學統計資訊學系。充滿活力的數據分析師，專注於利用統計學與機器學習，讓複雜的數據變得清晰、透亮且具備高影響力。</p>
+            <p lang-type="en">Statistics major at FJU. A vibrant Data Analyst dedicated to making complex data clear, transparent, and highly impactful through ML and statistics.</p>
         </section>
 
         <section id="about">
-            <div class="bento">
-                <div class="bento-card span-2" style="background: var(--bg-sub); border: none;">
-                    <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 20px;" lang-type="zh">關於我</h2>
-                    <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 20px;" lang-type="en">About Me</h2>
-                    <p lang-type="zh">你好！我是邱詩婷，輔仁大學統計資訊學系四年級學生。在統計的背景之下，我希望自己不僅是數據的處理者，更是數據與決策間的溝通橋樑，從資料中挖掘其隱藏價值並轉化為正確且實用的資訊。</p>
-                    <p lang-type="en">I strive to be more than a data processor. I am a communicator who turns messy data into actionable insights using Python, R, and Tableau.</p>
-                </div>
-                <div class="bento-card">
-                    <h3 style="color: var(--coral);">TOEIC 825</h3>
-                    <p lang-type="zh">流利的英語溝通能力</p>
-                    <p lang-type="en">Fluent Professional English</p>
-                </div>
-                <div class="bento-card">
-                    <i class="bi bi-person-check" style="font-size: 2rem;"></i>
-                    <p lang-type="zh">理性冷靜、沉穩做事、重視信任與分工。</p>
-                    <p lang-type="en">Rational, stable, and valuing mutual trust in teamwork.</p>
-                </div>
-                <div class="bento-card span-2">
-                    <h3 lang-type="zh">聯絡資訊</h3><h3 lang-type="en">Contact</h3>
-                    <p style="font-size: 1.2rem; margin-top: 10px;">Qiuuuu0511@gmail.com</p>
+            <div class="glass-card">
+                <h2 lang-type="zh">關於我 About Me</h2>
+                <h2 lang-type="en">About Me</h2>
+                <p lang-type="zh">在統計的背景之下，我希望自己不僅是數據的處理者，更是數據與決策間的溝通橋樑，從資料中挖掘其隱藏價值並成為資訊。</p>
+                <p lang-type="en">With a background in statistics, my goal is to bridge the gap between raw data and strategic decisions, extracting hidden value and turning it into actionable insights.</p>
+                
+                <div class="about-grid">
+                    <div class="about-item">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #00C9FF 0%, #92FE9D 100%);"><i class="bi bi-star-fill"></i></div>
+                        <div>
+                            <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;" lang-type="zh">核心技能</strong>
+                            <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;" lang-type="en">Core Skills</strong>
+                            <span style="font-size: 0.95rem; color: var(--text-muted);">Python, R, SPSS, SQL, Tableau</span>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #FAD961 0%, #F76B1C 100%);"><i class="bi bi-chat-heart"></i></div>
+                        <div>
+                            <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;" lang-type="zh">多益 TOEIC 825</strong>
+                            <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;" lang-type="en">TOEIC 825</strong>
+                            <span style="font-size: 0.95rem; color: var(--text-muted);" lang-type="zh">流利中英文溝通</span>
+                            <span style="font-size: 0.95rem; color: var(--text-muted);" lang-type="en">Fluent in English</span>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="icon-box" style="background: linear-gradient(135deg, #b224ef 0%, #7579ff 100%);"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <div>
+                            <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;" lang-type="zh">人格特質</strong>
+                            <strong style="color: var(--text-dark); display: block; margin-bottom: 5px;" lang-type="en">Personality</strong>
+                            <span style="font-size: 0.95rem; color: var(--text-muted);" lang-type="zh">理性沉穩、充滿責任感</span>
+                            <span style="font-size: 0.95rem; color: var(--text-muted);" lang-type="en">Rational, stable, responsible</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="projects">
-            <div class="project">
-                <div class="project-content">
-                    <div class="project-num">01</div>
-                    <h2 class="project-title" lang-type="zh">XGBoost 股票信號預測</h2>
-                    <h2 class="project-title" lang-type="en">Stock Signal Prediction</h2>
-                    <p class="text-dim" lang-type="zh">我的畢業專題：研究機器學習模型是否能改進台股加權指數的技術分析，並進行歷史資料回測。</p>
-                    <p class="text-dim" lang-type="en">My thesis explores how XGBoost improves technical analysis on the Taiwan Stock Index through rigorous backtesting.</p>
-                    <div class="tag-row">
-                        <span class="pill">XGBoost</span> <span class="pill">Quant</span> <span class="pill">Python</span>
-                    </div>
-                    <a href="https://github.com/xgboost-stock-signal-prediction" target="_blank" class="btn-link">
-                        VIEW GITHUB <i class="bi bi-arrow-right"></i>
+            <h2 style="text-align: center; margin-bottom: 40px;" lang-type="zh">✨ 統計與學術作品</h2>
+            <h2 style="text-align: center; margin-bottom: 40px;" lang-type="en">✨ Academic Projects</h2>
+
+            <div class="glass-card">
+                <h3 lang-type="zh">1. 畢業專題：以 XGBoost 模型改進台股技術分析</h3>
+                <h3 lang-type="en">1. Thesis: Improving Stock Tech-Analysis via XGBoost</h3>
+                <p lang-type="zh">運用機器學習模型驗證效能，透過歷史資料回測績效評估，比較機器學習與傳統策略在報酬率和風險管理方面的差異。</p>
+                <p lang-type="en">Validated ML effectiveness on Taiwan Stock Index through rigorous backtesting, comparing ML returns against traditional strategies.</p>
+                <div class="tag-container">
+                    <span class="tag">XGBoost 建模</span>
+                    <span class="tag">金融數據分析</span>
+                    <span class="tag">量化回測</span>
+                </div>
+                <div style="margin-top: 25px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://github.com/xgboost-stock-signal-prediction" target="_blank" class="btn-action btn-github">
+                        <i class="bi bi-github"></i> <span lang-type="zh">查看 GitHub</span><span lang-type="en">View GitHub</span>
+                    </a>
+                    <a href="docs/專題成果報告.pdf" target="_blank" class="btn-action btn-primary">
+                        <i class="bi bi-file-earmark-pdf"></i> <span lang-type="zh">閱讀報告</span><span lang-type="en">Read PDF</span>
                     </a>
                 </div>
-                <div style="background: var(--bg-sub); height: 400px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                    <i class="bi bi-graph-up" style="font-size: 10rem; color: rgba(13, 44, 84, 0.05);"></i>
+            </div>
+
+            <div class="glass-card">
+                <h3 lang-type="zh">2. 機器學習：A2 交通事故嚴重程度預測</h3>
+                <h3 lang-type="en">2. ML: Traffic Accident Severity Prediction</h3>
+                <p lang-type="zh">使用 113 年 7 月政府開放資料，透過機器學習模型進行事故特徵擷取與死傷嚴重程度預測。</p>
+                <p lang-type="en">Extracted critical features from open-source traffic data to predict casualty severity using Scikit-learn.</p>
+                <div class="tag-container">
+                    <span class="tag">Python Scikit-learn</span>
+                    <span class="tag">資料採礦</span>
+                </div>
+                <div style="margin-top: 25px;">
+                    <a href="https://youtu.be/a6mcAZ-bwe0" target="_blank" class="btn-action btn-primary" style="background: linear-gradient(135deg, #FF416C, #FF4B2B);">
+                        <i class="bi bi-youtube"></i> <span lang-type="zh">觀看展示影片</span><span lang-type="en">Watch Video</span>
+                    </a>
                 </div>
             </div>
 
-            <div class="project">
-                <div style="background: var(--bg-sub); height: 400px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                    <i class="bi bi-shield-check" style="font-size: 10rem; color: rgba(13, 44, 84, 0.05);"></i>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="glass-card" style="margin-bottom: 0;">
+                    <h3 lang-type="zh" style="font-size: 1.3rem;">3. 跨世代網路沉迷風險因素</h3>
+                    <h3 lang-type="en" style="font-size: 1.3rem;">3. Internet Addiction Risk Study</h3>
+                    <p style="font-size: 1rem;" lang-type="zh">運用 SRDA 數據進行分析，結合羅吉斯迴歸計算勝算比與決策樹描繪行為路徑。</p>
+                    <p style="font-size: 1rem;" lang-type="en">Analyzed SRDA data combining Logistic Regression & Decision Trees.</p>
+                    <div class="tag-container"><span class="tag">社會科學</span><span class="tag">行為建模</span></div>
+                    <a href="docs/113年網路沉迷分析.pdf" target="_blank" class="btn-action btn-primary" style="padding: 8px 20px; margin-top: 10px;">
+                        <span lang-type="zh">閱讀 PDF</span><span lang-type="en">Read PDF</span>
+                    </a>
                 </div>
-                <div class="project-content">
-                    <div class="project-num">02</div>
-                    <h2 class="project-title" lang-type="zh">交通事故嚴重程度預測</h2>
-                    <h2 class="project-title" lang-type="en">Traffic Severity Analytics</h2>
-                    <p class="text-dim" lang-type="zh">運用政府 A2 級交通事故資料，建立死傷預測模型。從海量數據中擷取關鍵特徵。</p>
-                    <p class="text-dim" lang-type="en">Extracting critical features from open-source traffic accident data to predict casualty severity.</p>
-                    <div class="tag-row">
-                        <span class="pill">Scikit-Learn</span> <span class="pill">ML</span>
-                    </div>
-                    <a href="https://youtu.be/a6mcAZ-bwe0" target="_blank" style="color: var(--navy); font-weight: 700; text-decoration: none;">WATCH VIDEO →</a>
+                <div class="glass-card" style="margin-bottom: 0;">
+                    <h3 lang-type="zh" style="font-size: 1.3rem;">4. NCBI 轉錄體大數據分析</h3>
+                    <h3 lang-type="en" style="font-size: 1.3rem;">4. NCBI Big Data Analytics</h3>
+                    <p style="font-size: 1rem;" lang-type="zh">基於 NCBI GEO 資料庫進行血液轉錄組分析，尋找重度憂鬱症與自殺傾向之關聯。</p>
+                    <p style="font-size: 1rem;" lang-type="en">Transcriptome analysis to identify key regulatory factors in MDD.</p>
+                    <div class="tag-container"><span class="tag">醫療統計</span><span class="tag">生物資訊</span></div>
+                    <a href="docs/醫學統計報告.pdf" target="_blank" class="btn-action btn-primary" style="padding: 8px 20px; margin-top: 10px;">
+                        <span lang-type="zh">閱讀 PDF</span><span lang-type="en">Read PDF</span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <section id="viz" class="viz-section">
-            <div class="viz-header">
-                <h2 lang-type="zh">視覺化成品</h2>
-                <h2 lang-type="en">Data Visualizations</h2>
-                <p style="opacity: 0.7;">Tableau Interactive Dashboards</p>
-            </div>
-            <div style="background: white; border-radius: 4px; padding: 10px; height: 700px; overflow: hidden;">
-                <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'><noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='1127_17326971448650&#47;sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div><script type='text/javascript'> var divElement = document.getElementById('viz1776181155848'); var vizElement = divElement.getElementsByTagName('object')[0]; vizElement.style.width='100%';vizElement.style.height='680px'; var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+        <section id="viz" style="margin-top: 80px;">
+            <div class="glass-card">
+                <h2 lang-type="zh">📊 Tableau 數據視覺化</h2>
+                <h2 lang-type="en">📊 Data Visualization</h2>
+                <h3 lang-type="zh" style="color: var(--text-dark);">全台新冠肺炎確診人數動態儀表板</h3>
+                <h3 lang-type="en" style="color: var(--text-dark);">COVID-19 Dynamic Dashboard</h3>
+                
+                <div class="tableau-wrapper mt-4">
+                    <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'><noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='1127_17326971448650&#47;sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div><script type='text/javascript'> var divElement = document.getElementById('viz1776181155848'); var vizElement = divElement.getElementsByTagName('object')[0]; vizElement.style.width='100%';vizElement.style.height='700px'; var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+                </div>
             </div>
         </section>
 
-        <section id="certs" style="margin-bottom: 200px;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 40px;" lang-type="zh">專業認證</h2>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 40px;" lang-type="en">Certifications</h2>
-            <div class="bento">
-                <div class="bento-card">
-                    <p class="text-dim">TQC+ Professional</p>
-                    <h4>Python 3</h4>
+        <section id="certs" style="margin-top: 40px; margin-bottom: 100px;">
+            <h2 style="text-align: center; margin-bottom: 40px;" lang-type="zh">🏆 專業證照</h2>
+            <h2 style="text-align: center; margin-bottom: 40px;" lang-type="en">🏆 Certifications</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                <div class="glass-card" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 1.2rem; color: var(--text-dark);">Python 3 程式語言</h3>
+                    <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="cert-img" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('lightbox').style.display='flex'">
                 </div>
-                <div class="bento-card">
-                    <p class="text-dim">TQC+ Specialty</p>
-                    <h4>Web Scraping</h4>
+                <div class="glass-card" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 1.2rem; color: var(--text-dark);">Python 網頁資料擷取</h3>
+                    <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="cert-img" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('lightbox').style.display='flex'">
                 </div>
-                <div class="bento-card">
-                    <p class="text-dim">IBM Certified</p>
-                    <h4>SPSS Business Analyst</h4>
+                <div class="glass-card" style="text-align: center; padding: 30px;">
+                    <h3 style="font-size: 1.2rem; color: var(--text-dark);">SPSS 商業分析師</h3>
+                    <img src="images/spss證照.jpg" class="cert-img" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('lightbox').style.display='flex'">
                 </div>
             </div>
         </section>
+
+    </div>
+
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="">
     </div>
 
     <script>
         function toggleLang() {
             const html = document.documentElement;
-            const current = html.getAttribute('lang');
-            html.setAttribute('lang', current === 'zh' ? 'en' : 'zh');
+            html.setAttribute('lang', html.getAttribute('lang') === 'zh' ? 'en' : 'zh');
         }
-
-        // 監聽滾動，讓 Dock 連結有 Active 效果
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-dock a');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(a => {
-                if (a.getAttribute('href').includes(current)) {
-                    a.style.color = 'var(--coral)';
-                } else {
-                    a.style.color = 'var(--navy)';
-                }
-            });
-        });
     </script>
 </body>
 </html>

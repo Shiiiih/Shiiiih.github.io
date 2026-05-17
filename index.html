@@ -3,96 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>邱詩婷 Shih-Ting Chiu | 數據分析作品集</title>
+    <title>邱詩婷 Shih-Ting Chiu | 數據分析作品集 Data Analytics Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* 全局設定 */
         html { scroll-behavior: smooth; }
-        body { font-family: 'Microsoft JhengHei', sans-serif; display: flex; margin: 0; background: #f8f9fa; color: #333; }
+        body { 
+            font-family: 'Poppins', 'Noto Sans TC', sans-serif; 
+            margin: 0; 
+            background-color: #f3f6f9; /* 柔和背景底色 */
+            color: #334155; 
+            position: relative;
+        }
         
-        /* 側邊欄 */
-        .sidebar { width: 280px; height: 100vh; background: #2c3e50; color: white; position: fixed; padding: 30px 20px; z-index: 1000; }
-        .sidebar h3 { font-size: 1.5rem; font-weight: bold; margin-bottom: 5px; }
-        .sidebar .sub-title { font-size: 0.85rem; color: #bdc3c7; margin-bottom: 30px; }
-        .nav-link { color: #ecf0f1; margin-bottom: 12px; border-radius: 8px; padding: 10px 15px; transition: 0.3s; }
-        .nav-link:hover { background: #34495e; color: #3498db; }
+        /* 網頁背景動態光暈效果 (科技美感) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            animation: floatGlow 15s infinite alternate;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: -10%; right: -10%;
+            width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: floatGlow 20s infinite alternate-reverse;
+        }
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* 雙語顯示邏輯 */
+        .lang-en { display: none; } /* 預設隱藏英文 */
+        body.en-mode .lang-en { display: inline-block; }
+        body.en-mode .lang-zh { display: none; }
+        /* 區塊級元素的雙語 */
+        body.en-mode div.lang-en, body.en-mode p.lang-en, body.en-mode h2.lang-en, body.en-mode h3.lang-en, body.en-mode h4.lang-en, body.en-mode h6.lang-en { display: block; }
+        div.lang-en, p.lang-en, h2.lang-en, h3.lang-en, h4.lang-en, h6.lang-en { display: none; }
+
+        /* 側邊欄設計 - 深色玻璃質感 */
+        .sidebar { 
+            width: 300px; 
+            height: 100vh; 
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); 
+            color: white; 
+            position: fixed; 
+            padding: 40px 30px; 
+            z-index: 1000; 
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+        .sidebar h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sidebar .sub-title { font-size: 0.9rem; color: #94a3b8; margin-bottom: 30px; font-weight: 300; }
+        .nav-link { color: #cbd5e1; margin-bottom: 8px; border-radius: 12px; padding: 12px 20px; transition: all 0.3s ease; font-weight: 500; font-size: 0.95rem; }
+        .nav-link:hover { background: rgba(255,255,255,0.1); color: #38bdf8; transform: translateX(5px); }
+        .nav-link i { margin-right: 10px; font-size: 1.1rem; }
+
+        /* 語言切換按鈕 */
+        .lang-toggle-btn {
+            width: 100%;
+            margin-top: 30px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .lang-toggle-btn:hover { background: rgba(255, 255, 255, 0.15); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
 
         /* 內容區 */
-        .content { margin-left: 280px; padding: 60px 80px; width: calc(100% - 280px); }
-        section { min-height: 100vh; padding-bottom: 80px; }
-        h2 { font-weight: bold; color: #2c3e50; margin-bottom: 40px; border-left: 6px solid #3498db; padding-left: 15px; }
-
-        /* 卡片設計 */
-        .card-custom { background: white; border-radius: 15px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: none; margin-bottom: 30px; }
+        .content { margin-left: 300px; padding: 60px 8%; width: calc(100% - 300px); }
+        section { min-height: 100vh; padding-top: 40px; padding-bottom: 60px; }
         
+        /* 標題設計 */
+        h2 { 
+            font-weight: 800; 
+            color: #1e293b; 
+            margin-bottom: 40px; 
+            position: relative;
+            display: inline-block;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -10px;
+            width: 60%; height: 5px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            border-radius: 5px;
+        }
+
+        /* 卡片設計 - 現代懸浮感 */
+        .card-custom { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(10px);
+            border-radius: 20px; 
+            padding: 40px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+            border: 1px solid rgba(255,255,255,0.5); 
+            margin-bottom: 40px; 
+            transition: all 0.4s ease; 
+        }
+        .card-custom:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+        .card-custom h4 { font-weight: 700; color: #0f172a; margin-bottom: 15px; font-size: 1.3rem; }
+
         /* 關於我內部樣式 */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .about-item { padding: 15px; background: #fdfdfd; border-radius: 10px; border: 1px solid #f0f0f0; }
-        .about-item h6 { color: #3498db; font-weight: bold; margin-bottom: 10px; }
+        .about-text { font-size: 1.15rem; line-height: 1.8; color: #475569; margin-bottom: 30px; }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .about-item { padding: 20px; background: #ffffff; border-radius: 15px; border: 1px solid #f1f5f9; transition: 0.3s; }
+        .about-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.04); border-color: #e2e8f0; }
+        .about-item h6 { color: #38bdf8; font-weight: 700; margin-bottom: 10px; font-size: 1rem; }
 
-        /* 證照卡片：三格等高 */
-        .cert-card { height: 100%; min-height: 350px; display: flex; flex-direction: column; justify-content: space-between; }
-        .img-clickable { width: 100%; border-radius: 10px; border: 1px solid #eee; transition: 0.3s; cursor: pointer; display: block; }
-        .img-clickable:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); opacity: 0.9; }
+        /* 技能標籤 */
+        .skill-badge { 
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); 
+            color: #0284c7; 
+            padding: 8px 18px; 
+            border-radius: 30px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            margin-right: 10px; 
+            display: inline-block; 
+            margin-bottom: 10px; 
+            border: 1px solid #bae6fd;
+            transition: 0.3s;
+        }
+        .skill-badge:hover { background: #0284c7; color: white; }
 
-        #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
-        #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 5px; }
+        /* 按鈕設計 */
+        .btn-action { 
+            margin-top: 15px; margin-right: 15px; border-radius: 30px; padding: 10px 25px; font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-github { background-color: #1e293b; color: white; border: none; }
+        .btn-github:hover { background-color: #0f172a; color: white; box-shadow: 0 5px 15px rgba(15,23,42,0.3); transform: translateY(-2px);}
+        .btn-pdf { background-color: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe; }
+        .btn-pdf:hover { background-color: #3b82f6; color: white; box-shadow: 0 5px 15px rgba(59,130,246,0.3); transform: translateY(-2px);}
+        .btn-youtube { background-color: #fef2f2; color: #ef4444; border: 1px solid #fecaca; }
+        .btn-youtube:hover { background-color: #ef4444; color: white; box-shadow: 0 5px 15px rgba(239,68,68,0.3); transform: translateY(-2px);}
 
-        .btn-action { margin-top: 15px; margin-right: 10px; border-radius: 25px; padding: 8px 20px; font-size: 0.9rem; transition: 0.3s; }
-        .tableau-container { width: 100%; min-height: 700px; background: #fff; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid #eee; padding: 20px; }
-        .skill-badge { background: #e1f0fa; color: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-right: 8px; display: inline-block; margin-bottom: 5px; }
+        /* 證照與圖片 */
+        .cert-card { height: 100%; min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .cert-card h6 { font-weight: 600; margin-bottom: 20px; color: #334155; }
+        .img-clickable { width: 100%; border-radius: 12px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: zoom-in; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .img-clickable:hover { transform: scale(1.03); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+
+        /* Lightbox */
+        #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); justify-content: center; align-items: center; cursor: zoom-out; backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s ease; }
+        #lightbox.show { display: flex; opacity: 1; }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+
+        /* Tableau */
+        .tableau-container { width: 100%; min-height: 700px; background: #fff; border-radius: 15px; overflow: hidden; margin-top: 20px; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
+
+        /* RWD 響應式設計 */
+        @media (max-width: 992px) {
+            .sidebar { width: 100%; height: auto; position: relative; padding: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+            .sidebar .nav { flex-direction: row !important; width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px; }
+            .nav-link { white-space: nowrap; margin-right: 10px; margin-bottom: 0; }
+            .lang-toggle-btn { width: auto; margin-top: 0; }
+            .content { margin-left: 0; width: 100%; padding: 40px 20px; }
+            .sidebar h3 { margin-bottom: 0; }
+            .sidebar .sub-title { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="lightbox" onclick="this.style.display='none'">
+    <div id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="">
     </div>
 
     <div class="sidebar">
-        <h3>邱詩婷</h3>
-        <div class="sub-title">輔大統資系 | 數據分析作品集</div>
-        <nav class="nav flex-column">
-            <a class="nav-link" href="#about">關於我</a>
-            <a class="nav-link" href="#ml">統計學術作品</a>
-            <a class="nav-link" href="#viz">視覺化成品 (Tableau)</a>
-            <a class="nav-link" href="#edu">跨域學習</a>
-            <a class="nav-link" href="#certs">專業證照</a>
+        <div>
+            <h3 class="lang-zh">邱詩婷</h3>
+            <h3 class="lang-en">Shih-Ting Chiu</h3>
+            <div class="sub-title lang-zh">輔大統資系 | 數據分析作品集</div>
+            <div class="sub-title lang-en">FJU Statistics & Info Science | Data Portfolio</div>
+        </div>
+        
+        <nav class="nav flex-column mt-3">
+            <a class="nav-link" href="#about"><i class="bi bi-person-fill"></i> <span class="lang-zh">關於我</span><span class="lang-en">About Me</span></a>
+            <a class="nav-link" href="#ml"><i class="bi bi-bar-chart-fill"></i> <span class="lang-zh">統計學術作品</span><span class="lang-en">Academic Projects</span></a>
+            <a class="nav-link" href="#viz"><i class="bi bi-pie-chart-fill"></i> <span class="lang-zh">視覺化 (Tableau)</span><span class="lang-en">Data Viz (Tableau)</span></a>
+            <a class="nav-link" href="#edu"><i class="bi bi-laptop"></i> <span class="lang-zh">跨域學習</span><span class="lang-en">Cross-Domain</span></a>
+            <a class="nav-link" href="#certs"><i class="bi bi-award-fill"></i> <span class="lang-zh">專業證照</span><span class="lang-en">Certifications</span></a>
         </nav>
+
+        <button class="lang-toggle-btn" onclick="toggleLanguage()">
+            <i class="bi bi-translate"></i> <span id="lang-btn-text">Switch to English</span>
+        </button>
     </div>
 
     <div class="content">
         <section id="about">
-            <h2>關於我</h2>
+            <h2 class="lang-zh">關於我</h2>
+            <h2 class="lang-en">About Me</h2>
             <div class="card-custom">
-                <p style="font-size: 1.15rem; line-height: 1.8; color: #2c3e50;">
-                    你好！我是邱詩婷，輔仁大學統計資訊學系四年級學生。在統計的背景之下，我希望自己不僅是數據的處理者，更是數據與決策間的溝通橋樑，從資料中挖掘其隱藏價值並成為資訊。
+                <p class="about-text lang-zh">
+                    你好！我是邱詩婷，輔仁大學統計資訊學系四年級學生。在統計的背景之下，我希望自己不僅是數據的處理者，更是數據與決策間的溝通橋樑，從資料中挖掘其隱藏價值並轉化為實用的資訊。
+                </p>
+                <p class="about-text lang-en">
+                    Hello! I'm Shih-Ting Chiu, a senior majoring in Statistics and Information Science at Fu Jen Catholic University. With a strong background in statistics, my goal is to be more than just a data processor—I strive to bridge the gap between raw data and decision-making, uncovering hidden values and transforming them into actionable insights.
                 </p>
 
                 <div class="about-grid">
                     <div class="about-item">
-                        <h6><i class="bi bi-person-hearts"></i> 人格特質</h6>
-                        <p class="small text-muted mb-0">理性冷靜做事沉穩，善於溝通，有責任心。</p>
+                        <h6><i class="bi bi-person-hearts"></i> <span class="lang-zh">人格特質</span><span class="lang-en">Personality</span></h6>
+                        <p class="small text-muted mb-0 lang-zh">理性冷靜做事沉穩，善於溝通，有責任心。</p>
+                        <p class="small text-muted mb-0 lang-en">Rational, calm, communicative, and highly responsible.</p>
+                    </div>
+                    <div class="about-item" style="grid-column: span 2; @media(max-width:768px){grid-column: span 1;}">
+                        <h6><i class="bi bi-star-fill"></i> <span class="lang-zh">核心優勢與技能</span><span class="lang-en">Core Skills</span></h6>
+                        <p class="small text-muted mb-0 lang-zh">精通資料清理、統計建模與視覺化呈現。擅長運用 Python、R、SPSS、SQL 與 Tableau 等工具做數據分析。</p>
+                        <p class="small text-muted mb-0 lang-en">Proficient in data cleaning, statistical modeling, and visualization. Skilled in Python, R, SPSS, SQL, and Tableau.</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-star"></i> 核心優勢與技能</h6>
-                        <p class="small text-muted mb-0">精通資料清理、統計建模與視覺化呈現。擅長運用 Python、R、SPSS、SQL 與 Tableau 等工具做數據分析。
-                        </p>
+                        <h6><i class="bi bi-chat-dots-fill"></i> <span class="lang-zh">語文能力</span><span class="lang-en">Languages</span></h6>
+                        <p class="small text-muted mb-0 lang-zh">中文 / 英文 (多益825分)。</p>
+                        <p class="small text-muted mb-0 lang-en">Mandarin (Native) / English (TOEIC 825).</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-chat-dots"></i> 語文能力</h6>
-                        <p class="small text-muted mb-0">中文 / 英文(多益825)。</p>
+                        <h6><i class="bi bi-people-fill"></i> <span class="lang-zh">團隊合作模式</span><span class="lang-en">Teamwork</span></h6>
+                        <p class="small text-muted mb-0 lang-zh">重視信任、偏好明確的分工與目標設定。</p>
+                        <p class="small text-muted mb-0 lang-en">Value trust, prefer clear division of labor and clear goals.</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-people"></i> 團隊合作模式</h6>
-                        <p class="small text-muted mb-0">重視信任、偏好明確的分工與目標設定。</p>
+                        <h6><i class="bi bi-controller"></i> <span class="lang-zh">生活愛好</span><span class="lang-en">Hobbies</span></h6>
+                        <p class="small text-muted mb-0 lang-zh">喜歡看辯論/談話性節目、有氧運動、打羽球。</p>
+                        <p class="small text-muted mb-0 lang-en">Debate shows, aerobics, and playing badminton.</p>
                     </div>
                     <div class="about-item">
-                        <h6><i class="bi bi-controller"></i> 生活愛好</h6>
-                        <p class="small text-muted mb-0">喜歡看辯論/談話性節目、有氧運動、打羽球。</p>
-                    </div>
-                    <div class="about-item">
-                        <h6><i class="bi bi-envelope"></i> 聯絡資訊</h6>
+                        <h6><i class="bi bi-envelope-fill"></i> <span class="lang-zh">聯絡資訊</span><span class="lang-en">Contact</span></h6>
                         <p class="small text-muted mb-0">Email: Qiuuuu0511@gmail.com</p>
                     </div>
                 </div>
@@ -100,67 +252,94 @@
         </section>
 
         <section id="ml">
-            <h2>統計學術作品</h2>
+            <h2 class="lang-zh">統計學術作品</h2>
+            <h2 class="lang-en">Academic Projects</h2>
             
             <div class="card-custom">
-                <h4>1. 畢業專題：以台股加權指數研究機器學習模型（XGBoost）是否能改進技術分析</h4>
-                <p class="text-muted">運用 XGBoost 模型驗證機器學習效能，透過歷史資料回測績效評估，比較機器學習與傳統策略在報酬率和風險管理方面的差異。</p>
+                <h4 class="lang-zh">1. 畢業專題：以台股加權指數研究機器學習模型（XGBoost）是否能改進技術分析</h4>
+                <h4 class="lang-en">1. Graduation Project: Using XGBoost to Improve Technical Analysis on Taiwan Stock Index</h4>
+                
+                <p class="text-muted lang-zh">運用 XGBoost 模型驗證機器學習效能，透過歷史資料回測績效評估，比較機器學習與傳統策略在報酬率和風險管理方面的差異。</p>
+                <p class="text-muted lang-en">Validated ML performance using the XGBoost model. Evaluated historical data backtesting to compare returns and risk management between ML and traditional strategies.</p>
+                
                 <div class="mb-3">
-                    <span class="skill-badge">XGBoost 建模 </span>
-                    <span class="skill-badge">金融數據分析</span>
-                    <span class="skill-badge">量化策略回測</span>
+                    <span class="skill-badge">XGBoost</span>
+                    <span class="skill-badge lang-zh">金融數據分析</span><span class="skill-badge lang-en">Financial Data Analysis</span>
+                    <span class="skill-badge lang-zh">量化策略回測</span><span class="skill-badge lang-en">Quantitative Backtesting</span>
                 </div>
                 <div class="mt-3">
-                    <a href="docs/專題成果報告.pdf" target="_blank" class="btn btn-outline-primary btn-action">閱讀專題 PDF</a>
+                    <a href="https://github.com/xgboost-stock-signal-prediction" target="_blank" class="btn btn-github btn-action">
+                        <i class="bi bi-github"></i> <span class="lang-zh">查看 GitHub 程式碼</span><span class="lang-en">View Code on GitHub</span>
+                    </a>
+                    <a href="docs/專題成果報告.pdf" target="_blank" class="btn btn-pdf btn-action">
+                        <i class="bi bi-file-earmark-pdf-fill"></i> <span class="lang-zh">閱讀專題 PDF</span><span class="lang-en">Read Project PDF</span>
+                    </a>
                 </div>
             </div>
             
             <div class="card-custom">
-                <h4>2. 使用政府開放資料（113 年 7 月 A2 交通事故資料）進行機器學習模型實作</h4>
-                <p class="text-muted">透過機器學習模型進行事故特徵擷取與死傷嚴重程度（單人/多人受傷）的預測。</p>
+                <h4 class="lang-zh">2. 機器學習實作：113 年 7 月 A2 交通事故資料預測</h4>
+                <h4 class="lang-en">2. ML Implementation: Traffic Accident Severity Prediction (July 2024)</h4>
+                
+                <p class="text-muted lang-zh">使用政府開放資料，透過機器學習模型進行事故特徵擷取與死傷嚴重程度（單人/多人受傷）的預測。</p>
+                <p class="text-muted lang-en">Utilized open government data to extract accident features and predict the severity of casualties (single vs. multiple injuries) using ML models.</p>
+                
                 <div class="mb-3">
                     <span class="skill-badge">Python (Scikit-learn)</span>
-                    <span class="skill-badge">資料採礦 (Data Mining)</span>
-                    <span class="skill-badge">模型建構/優化</span>
+                    <span class="skill-badge lang-zh">資料採礦</span><span class="skill-badge lang-en">Data Mining</span>
+                    <span class="skill-badge lang-zh">模型建構/優化</span><span class="skill-badge lang-en">Model Optimization</span>
                 </div>
-
                 <div class="mt-3">
-                    <a href="https://youtu.be/a6mcAZ-bwe0" target="_blank" class="btn btn-outline-danger btn-action">
-                        <i class="bi bi-youtube"></i> 觀看 YouTube 展示影片
+                    <a href="https://youtu.be/a6mcAZ-bwe0" target="_blank" class="btn btn-youtube btn-action">
+                        <i class="bi bi-youtube"></i> <span class="lang-zh">觀看展示影片</span><span class="lang-en">Watch Demo Video</span>
                     </a>
                 </div>
             </div>
 
             <div class="card-custom">
-                <h4>3. 使用SRDA學術資料庫資料進行跨世代網路沉迷風險因素研究</h4>
-                <p class="text-muted">運用學術調查研究資料庫（SRDA）之數據進行分析，結合 羅吉斯迴歸 計算勝算比與決策樹描繪行為路徑 。</p>
+                <h4 class="lang-zh">3. 跨世代網路沉迷風險因素研究 (SRDA學術資料庫)</h4>
+                <h4 class="lang-en">3. Cross-Generational Internet Addiction Risk Factors Study</h4>
+                
+                <p class="text-muted lang-zh">運用學術調查研究資料庫（SRDA）之數據進行分析，結合羅吉斯迴歸計算勝算比，與決策樹描繪行為路徑。</p>
+                <p class="text-muted lang-en">Analyzed data from the Survey Research Data Archive (SRDA). Combined Logistic Regression for odds ratios and Decision Trees to map behavioral paths.</p>
+                
                 <div class="mb-3">
-                    <span class="skill-badge">社會科學數據分析</span>
-                    <span class="skill-badge">機器學習</span>
-                    <span class="skill-badge">行為預測建模</span>
+                    <span class="skill-badge lang-zh">社會科學數據分析</span><span class="skill-badge lang-en">Social Science Analytics</span>
+                    <span class="skill-badge">Machine Learning</span>
+                    <span class="skill-badge lang-zh">行為預測建模</span><span class="skill-badge lang-en">Behavioral Modeling</span>
                 </div>
                 <div class="mt-3">
-                    <a href="docs/113年網路沉迷分析.pdf" target="_blank" class="btn btn-outline-primary btn-action">瀏覽PDF</a>
+                    <a href="docs/113年網路沉迷分析.pdf" target="_blank" class="btn btn-pdf btn-action">
+                        <i class="bi bi-file-earmark-pdf-fill"></i> <span class="lang-zh">瀏覽 PDF</span><span class="lang-en">View PDF</span>
+                    </a>
                 </div>
             </div>
 
             <div class="card-custom">
-                <h4>4. NCBI 轉錄體大數據分析：重度憂鬱症伴隨自殺傾向之基因探究</h4>
-                <p class="text-muted">基於 NCBI GEO 資料庫（GSE291874）進行血液轉錄組分析，找出重度憂鬱症（MDD）伴隨急性自殺傾向之關鍵調控因子。</p>
+                <h4 class="lang-zh">4. NCBI 轉錄體大數據分析：重度憂鬱症伴隨自殺傾向之基因探究</h4>
+                <h4 class="lang-en">4. NCBI Transcriptome Big Data: Genes in MDD with Suicidal Tendencies</h4>
+                
+                <p class="text-muted lang-zh">基於 NCBI GEO 資料庫（GSE291874）進行血液轉錄組分析，找出重度憂鬱症（MDD）伴隨急性自殺傾向之關鍵調控因子。</p>
+                <p class="text-muted lang-en">Conducted blood transcriptome analysis based on the NCBI GEO database (GSE291874) to identify key regulatory factors in MDD accompanied by acute suicidal tendencies.</p>
+                
                 <div class="mb-3">
-                    <span class="skill-badge">醫療統計</span>
-                    <span class="skill-badge">生物資訊工具應用</span>
+                    <span class="skill-badge lang-zh">醫療統計</span><span class="skill-badge lang-en">Medical Statistics</span>
+                    <span class="skill-badge lang-zh">生物資訊工具應用</span><span class="skill-badge lang-en">Bioinformatics Tools</span>
                 </div>
                 <div class="mt-3">
-                    <a href="docs/醫學統計報告.pdf" target="_blank" class="btn btn-outline-primary btn-action">瀏覽PDF</a>
+                    <a href="docs/醫學統計報告.pdf" target="_blank" class="btn btn-pdf btn-action">
+                        <i class="bi bi-file-earmark-pdf-fill"></i> <span class="lang-zh">瀏覽 PDF</span><span class="lang-en">View PDF</span>
+                    </a>
                 </div>
             </div>
         </section>
 
         <section id="viz">
-            <h2>視覺化相關成品 (Tableau)</h2>
+            <h2 class="lang-zh">視覺化相關成品 (Tableau)</h2>
+            <h2 class="lang-en">Data Visualization (Tableau)</h2>
             <div class="card-custom">
-                <h4>動態儀表板：全台新冠肺炎確診人數分析</h4>
+                <h4 class="lang-zh">動態儀表板：全台新冠肺炎確診人數分析</h4>
+                <h4 class="lang-en">Dynamic Dashboard: COVID-19 Cases Analysis in Taiwan</h4>
                 <div class="tableau-container">
                     <div class='tableauPlaceholder' id='viz1776181155848' style='position: relative'><noscript><a href='#'><img alt='新冠肺炎儀表板 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='1127_17326971448650&#47;sheet5' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;11&#47;1127_17326971448650&#47;sheet5&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='zh-TW' /></object></div><script type='text/javascript'> var divElement = document.getElementById('viz1776181155848'); var vizElement = divElement.getElementsByTagName('object')[0]; if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1577px';} var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
                 </div>
@@ -168,50 +347,66 @@
         </section>
 
         <section id="edu">
-            <h2>跨域學習</h2>
+            <h2 class="lang-zh">跨域學習</h2>
+            <h2 class="lang-en">Cross-disciplinary Learning</h2>
             
             <div class="card-custom">
-                <h4>教育大數據微學程：教育資料結合大數據分析</h4>
-                <p class="text-muted">運用R統計軟體分析系上線性代數成績，並使用tableau視覺化。專題成果如下：</p>
-                <div class="row">
-                    <div class="col-md-6"><img src="images/教育大數據海報1.png" class="img-clickable" onclick="openLightbox(this.src)"></div>
-                    <div class="col-md-6"><img src="images/教育大數據海報2.png" class="img-clickable" onclick="openLightbox(this.src)"></div>
+                <h4 class="lang-zh">教育大數據微學程：教育資料結合大數據分析</h4>
+                <h4 class="lang-en">Education Big Data Program: Analyzing Educational Data</h4>
+                <p class="text-muted lang-zh">運用 R 統計軟體分析系上線性代數成績，並使用 Tableau 視覺化。專題成果如下：</p>
+                <p class="text-muted lang-en">Used R to analyze the department's Linear Algebra grades and visualized the results with Tableau. Project posters below:</p>
+                <div class="row g-3 mt-2">
+                    <div class="col-md-6"><img src="images/教育大數據海報1.png" class="img-clickable" onclick="openLightbox(this.src)" alt="教育大數據海報1"></div>
+                    <div class="col-md-6"><img src="images/教育大數據海報2.png" class="img-clickable" onclick="openLightbox(this.src)" alt="教育大數據海報2"></div>
                 </div>
             </div>
 
             <div class="card-custom">
-                <h4>大數據跨領域微學程：網頁系統與資料庫實作</h4>
-                <div class="p-3 bg-light rounded border mb-3">
-                    <small class="text-secondary">受保密協議約束，項目實作中。僅列出技術實作範疇：</small>
+                <h4 class="lang-zh">大數據跨領域微學程：網頁系統與資料庫實作</h4>
+                <h4 class="lang-en">Big Data Cross-Domain Program: Web Systems & Databases</h4>
+                <div class="p-3 mb-3" style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; border-radius: 0 10px 10px 0;">
+                    <small class="text-secondary lang-zh"><i class="bi bi-shield-lock-fill"></i> 受保密協議約束，項目實作中。僅列出技術實作範疇：</small>
+                    <small class="text-secondary lang-en"><i class="bi bi-shield-lock-fill"></i> Bound by NDA, project in progress. Technical scope listed below:</small>
                 </div>
-                <ul>
-                    <li class="small text-muted"><strong>專案透明化：</strong> 實施週進度視覺化管理，利用報表同步更新團隊資訊以及專案狀況。</li>
-                    <li class="small text-muted"><strong>資料整理：</strong> 負責原始數據之清洗與轉置，方便後續分析流程。</li>
-                    <li class="small text-muted"><strong>新增OLAP 功能：</strong> 實作線上分析處理功能，支援多維度數據視覺化分析。</li>
-                    <li class="small text-muted"><strong>網頁前端美化：</strong> 運用 CSS 與 Bootstrap 提升使用者介面的易用性與美感。</li>
+                <ul class="text-muted" style="line-height: 1.8;">
+                    <li class="lang-zh"><strong>專案透明化：</strong> 實施週進度視覺化管理，利用報表同步更新團隊資訊以及專案狀況。</li>
+                    <li class="lang-en"><strong>Project Transparency:</strong> Implemented visual weekly progress management to sync team info via reports.</li>
+                    
+                    <li class="lang-zh"><strong>資料整理：</strong> 負責原始數據之清洗與轉置，方便後續分析流程。</li>
+                    <li class="lang-en"><strong>Data Wrangling:</strong> Responsible for cleaning and transposing raw data to facilitate analysis pipelines.</li>
+                    
+                    <li class="lang-zh"><strong>新增 OLAP 功能：</strong> 實作線上分析處理功能，支援多維度數據視覺化分析。</li>
+                    <li class="lang-en"><strong>OLAP Implementation:</strong> Developed Online Analytical Processing features for multi-dimensional visualization.</li>
+                    
+                    <li class="lang-zh"><strong>網頁前端美化：</strong> 運用 CSS 與 Bootstrap 提升使用者介面的易用性與美感。</li>
+                    <li class="lang-en"><strong>Frontend UI/UX:</strong> Utilized CSS and Bootstrap to enhance user interface aesthetics and usability.</li>
                 </ul>
             </div>
         </section>
 
         <section id="certs">
-            <h2>專業證照 (點擊放大)</h2>
+            <h2 class="lang-zh">專業證照 <span style="font-size: 1rem; font-weight: normal; color: #94a3b8;">(點擊放大)</span></h2>
+            <h2 class="lang-en">Certifications <span style="font-size: 1rem; font-weight: normal; color: #94a3b8;">(Click to enlarge)</span></h2>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card-custom cert-card text-center p-3">
-                        <h6>(TQC+) 程式語言 Python 3</h6>
-                        <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
+                    <div class="card-custom cert-card p-3">
+                        <h6 class="lang-zh">(TQC+) 程式語言 Python 3</h6>
+                        <h6 class="lang-en">(TQC+) Python 3 Programming</h6>
+                        <img src="images/(TQC+)程式語言 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)" alt="Python證照">
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card-custom cert-card text-center p-3">
-                        <h6>(TQC+)網頁資料擷取與分析 Python 3證照</h6>
-                        <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
+                    <div class="card-custom cert-card p-3">
+                        <h6 class="lang-zh">(TQC+)網頁資料擷取與分析 Python 3證照</h6>
+                        <h6 class="lang-en">(TQC+) Web Scraping & Analysis (Python 3)</h6>
+                        <img src="images/(TQC+)網頁資料擷取與分析 Python 3證照.jpg" class="img-clickable" onclick="openLightbox(this.src)" alt="網頁爬蟲證照">
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card-custom cert-card text-center p-3">
-                        <h6>SPSS 商業分析師(標準級)</h6>
-                        <img src="images/spss證照.jpg" class="img-clickable" onclick="openLightbox(this.src)">
+                    <div class="card-custom cert-card p-3">
+                        <h6 class="lang-zh">SPSS 商業分析師 (標準級)</h6>
+                        <h6 class="lang-en">SPSS Business Analyst (Standard)</h6>
+                        <img src="images/spss證照.jpg" class="img-clickable" onclick="openLightbox(this.src)" alt="SPSS證照">
                     </div>
                 </div>
             </div>
@@ -219,9 +414,28 @@
     </div>
 
     <script>
+        // Lightbox 功能
         function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
+            lightbox.classList.add('show');
+        }
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('show');
+        }
+
+        // 雙語切換功能
+        let isEnglish = false;
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            if(isEnglish) {
+                document.body.classList.add('en-mode');
+                document.getElementById('lang-btn-text').innerText = "切換為中文";
+            } else {
+                document.body.classList.remove('en-mode');
+                document.getElementById('lang-btn-text').innerText = "Switch to English";
+            }
         }
     </script>
 </body>
